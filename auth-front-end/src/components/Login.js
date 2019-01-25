@@ -3,8 +3,10 @@ import axios from 'axios';
 
 class Login extends React.Component {
   state = {
-    username: 'kai',
-    password: 'pass'
+    username: '',
+    password: '',
+    //department: '',
+    errorMsg: null
   };
   render() {
     return (
@@ -28,8 +30,23 @@ class Login extends React.Component {
             onChange={this.handleInputChange}
           />
         </div>
+        {/* 
+        <div>
+          <label>Department</label>
+          <input
+            name="department"
+            value={this.state.department}
+            type="text"
+            onChange={this.handleInputChange}
+          />
+        </div> */}
+        {this.state.errorMsg && <p>Error: {this.state.errorMsg}</p>}
+
         <div>
           <button type="submit">Login!</button>
+        </div>
+        <div>
+          <button onClick={this.handleSignup}>Register!</button>
         </div>
       </form>
     );
@@ -47,8 +64,27 @@ class Login extends React.Component {
       .post(endpoint, this.state)
       .then(res => {
         localStorage.setItem('jwt', res.data.token);
+        this.props.history.push('/');
       })
       .catch(err => console.log(err));
+  };
+
+  handleSignup = event => {
+    event.preventDefault();
+
+    axios
+      .post('http://localhost:5000/register', {
+        username: this.state.username,
+        password: this.state.password,
+        name: 'sawyer'
+        //department: this.state.department
+      })
+      .then(res => {
+        localStorage.setItem('jwt', res.data.token);
+
+        this.props.history.push('/');
+      })
+      .catch(err => this.setState({ errorMsg: 'lol try again nub' }));
   };
 }
 

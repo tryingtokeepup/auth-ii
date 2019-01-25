@@ -9,7 +9,7 @@ class App extends Component {
       <>
         <header>
           <nav>
-            <NavLink to="/signin">Login</NavLink>
+            <NavLink to="/login">Login</NavLink>
             &nbsp;|&nbsp;
             <NavLink to="/users">Users</NavLink>
             <button onClick={this.signout}>Sign Out</button>
