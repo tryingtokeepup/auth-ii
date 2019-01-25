@@ -115,14 +115,19 @@ server.get(
   }
 );
 
-server.get('/users/me', lock, async (req, res) => {
-  console.log(req.decodedToken);
-  const user = await db('users')
-    .where({ username: req.decodedToken.username })
-    .first();
+server.get(
+  '/users/me',
+  lock,
+  checkDepartment('super sexy dude'),
+  async (req, res) => {
+    console.log(req.decodedToken);
+    const user = await db('users')
+      .where({ username: req.decodedToken.username })
+      .first();
 
-  res.json(user);
-});
+    res.json(user);
+  }
+);
 
 server.get('/users/:id', lock, async (req, res) => {
   const user = await db('users')
@@ -136,5 +141,3 @@ server.get('/users/:id', lock, async (req, res) => {
 });
 
 module.exports = server;
-
-//checkDepartment('super sexy dude'),
