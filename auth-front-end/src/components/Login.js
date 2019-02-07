@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class Login extends React.Component {
   state = {
-    username: '',
+    username: '', // email
     password: '',
     //department: '',
     errorMsg: null
@@ -58,7 +58,7 @@ class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const endpoint = `${process.env.REACT_APP_API_URL}/login`;
+    const endpoint = `${process.env.REACT_APP_API_URL}/login`; // put in the api url
 
     axios
       .post(endpoint, this.state)
@@ -74,6 +74,7 @@ class Login extends React.Component {
 
     axios
       .post('http://localhost:5000/register', {
+        // this was a mistake, but you can do it this way
         username: this.state.username,
         password: this.state.password,
         name: 'sawyer'
